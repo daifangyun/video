@@ -14,15 +14,15 @@ class m130524_201442_init extends Migration
 
         $this->createTable('{{%user}}', [
             'id' => $this->primaryKey(),
-            'username' => $this->string()->notNull()->unique(),
-            'auth_key' => $this->string(32)->notNull(),
-            'password_hash' => $this->string()->notNull(),
-            'password_reset_token' => $this->string()->unique(),
-            'email' => $this->string()->notNull()->unique(),
+            'username' => $this->string()->notNull()->unique()->comment('账号'),
+            'auth_key' => $this->string(32)->notNull()->comment('自动登录key'),
+            'password_hash' => $this->string()->notNull()->comment('加密密码'),
+            'password_reset_token' => $this->string()->unique()->comment('重置密码token'),
+            'email' => $this->string()->notNull()->unique()->comment('邮箱'),
 
-            'status' => $this->smallInteger()->notNull()->defaultValue(10),
-            'created_at' => $this->integer()->notNull(),
-            'updated_at' => $this->integer()->notNull(),
+            'status' => $this->smallInteger()->notNull()->defaultValue(10)->comment('账号状态,10:启用:0:不启用'),
+            'created_at' => $this->integer()->notNull()->comment('创建时间'),
+            'updated_at' => $this->integer()->notNull()->comment('最后修改时间'),
         ], $tableOptions);
     }
 
