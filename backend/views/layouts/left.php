@@ -60,8 +60,9 @@
                                 'url' => '#',
                                 'items' => [
                                     ['label' => '添加权限', 'icon' => 'plus', 'url' => ['/permission/create-permission'],],
+                                    ['label' => '权限列表', 'icon' => 'list-ul', 'url' => ['/permission/list-role'],],
                                     ['label' => '添加角色', 'icon' => 'plus', 'url' => ['/permission/create-role'],],
-                                    ['label' => '权限列表', 'icon' => 'list-ul', 'url' => ['/permission/list'],],
+                                    ['label' => '角色列表', 'icon' => 'list-ul', 'url' => ['/permission/list-permission'],],
                                 ],
                             ],
                         ],

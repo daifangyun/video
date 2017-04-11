@@ -68,4 +68,26 @@ class PermissionController extends BaseController
             'identify' => 'role',
         ]);
     }
+
+    /**
+     * 获取角色列表
+     * @return string
+     */
+    public function actionListRole()
+    {
+        $auth = \Yii::$app->authManager;
+        $roles = $auth->getRoles();
+        return $this->render('list-role', ['list' => $roles]);
+    }
+
+    /**
+     * 获取权限列表
+     * @return string
+     */
+    public function actionListPermission()
+    {
+        $auth = \Yii::$app->authManager;
+        $permission = $auth->getPermissions();
+        return $this->render('list-role', ['list' => $permission]);
+    }
 }
