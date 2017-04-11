@@ -37,19 +37,10 @@ $this->title = '文章列表';
                                     <td><?= Html::encode($v->description) ?></td>
                                     <td><?= date('Y-m-d H:i:s', $v->createdAt) ?></td>
                                     <td>
-                                        <a href="<?= Url::to([Yii::$app->controller->id . '/distribution-permission', 'id' => $v->name]) ?>"
-                                           style="margin-right: 20px;">
-                                            <i class="fa fa-hand-lizard-o"></i>
-                                        </a>
-                                        |
-                                        <a href="<?= Url::to([Yii::$app->controller->id . '/edit', 'id' => $v->name]) ?>"
-                                           style="margin-right: 20px;">
-                                            <i class="fa fa-edit"></i>
-                                        </a>
-                                        |
-                                        <a href="<?= Url::to([Yii::$app->controller->id . '/del', 'id' => $v->name]) ?>"
-                                           style="margin-left: 20px;"><i
-                                                    class="fa fa-trash text-navy"></i></a>
+                                        <div class="btn-group">
+                                            <a role="button" class="btn btn-info">修改权限</a>
+                                            <a role="button" class="btn btn-danger">删除权限</a>
+                                        </div>
                                     </td>
                                 </tr>
                             <?php endforeach; ?>

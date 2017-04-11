@@ -27,6 +27,8 @@ class PermissionController extends BaseController
             $permissionForm->setScenario(PermissionForm::SCENARIOS_CREATE);
             if ($permissionForm->load(\Yii::$app->request->post()) && $permissionForm->validate()) {
                 if ($permissionForm->createPermission()) {
+                    $permissionForm->name = '';
+                    $permissionForm->description = '';
                     $session->setFlash('formSuccess', '创建权限成功 ...');
                 } else {
                     $session->setFlash('formError', '创建权限失败 ...');
@@ -55,6 +57,8 @@ class PermissionController extends BaseController
             $permissionForm->setScenario(PermissionForm::SCENARIOS_CREATE);
             if ($permissionForm->load(\Yii::$app->request->post()) && $permissionForm->validate()) {
                 if ($permissionForm->createRole()) {
+                    $permissionForm->name = '';
+                    $permissionForm->description = '';
                     $session->setFlash('formSuccess', '创建角色成功 ...');
                 } else {
                     $session->setFlash('formError', '创建角色失败 ...');
@@ -175,6 +179,7 @@ class PermissionController extends BaseController
                 return $this->goBack();
             }
 
+
             $auth = \Yii::$app->authManager;
 
             //创建角色对象
@@ -183,20 +188,15 @@ class PermissionController extends BaseController
             if (!$parent) {
                 return $this->goBack();
             }
-
             //先删除角色的所有权限
-            $auth->removeAllPermissions();
-            $roles = $auth->getRoles();
-            foreach ($roles as $v) {
-                $auth->removeChild($v, $child);
-            }
+            $auth->removeChildren($parent);
 
             //循环创建关系
-            foreach ($postRoles as $k => $v) {
-                $parent = $auth->createRole($v);    //创建角色对象
+            foreach ($postPermission as $k => $v) {
+                $child = $auth->createRole($v);    //创建角色对象
                 $auth->addChild($parent, $child);  //添加对应关系
             }
-            return $this->redirect([\Yii::$app->controller->id . '/list-permission']);
+            return $this->redirect([\Yii::$app->controller->id . '/list-role']);
         }
     }
 }

@@ -30,7 +30,7 @@ $auth = Yii::$app->authManager;
                         <div class="form-group">
                             <?php foreach ($list as $k => $v): ?>
                                 <!--查看改角色是否已经拥有了该权限-->
-                                <?php $hasPermission = $auth->hasChild($v, $role) ?>
+                                <?php $hasPermission = $auth->hasChild($role, $v) ?>
                                 <div class="checkbox-inline">
                                     <label>
                                         <input type="checkbox" name="permission[]"
