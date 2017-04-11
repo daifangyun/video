@@ -45,6 +45,66 @@ class PermissionController extends BaseController
     }
 
     /**
+     * 修改权限--没做完。。。
+     * @return string|\yii\web\Response
+     */
+    public function actionEditPermission()
+    {
+        /**
+         * 如果为get请求，获取对应的值
+         */
+        if (\Yii::$app->request->isGet) {
+            $id = \Yii::$app->request->get('id');
+
+            if (!$id) return $this->goBack();
+
+            //获取此权限
+            $auth = \Yii::$app->authManager;
+
+            $permission = $auth->getPermission($id);
+
+            if (!$permission) return $this->goBack();
+
+            $permissionForm = new PermissionForm();
+            $permissionForm->name = $permission->name;
+            $permissionForm->description = $permission->description;
+
+            return $this->render('edit', ['model' => $permissionForm, 'identify' => 'permission',]);
+        }
+
+        /**
+         * 如果为post提交，去修改
+         */
+        if (\Yii::$app->request->isPost) {
+            dd(\Yii::$app->request->post());
+        }
+
+    }
+
+    public function actionDelPermission()
+    {
+        $id = \Yii::$app->request->get('id');
+
+        if (!$id) return $this->goBack();
+
+        //获取此权限
+        $auth = \Yii::$app->authManager;
+
+        $permission = $auth->getPermission($id);
+
+        if (!$permission) return $this->goBack();
+
+        //获取此权限的角色
+//        $auth->getRole
+
+        $permissionForm = new PermissionForm();
+        $permissionForm->name = $permission->name;
+        $permissionForm->description = $permission->description;
+
+        return $this->render('edit', ['model' => $permissionForm, 'identify' => 'permission',]);
+    }
+
+    /**
      * 创建角色
      * @return string
      */

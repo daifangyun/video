@@ -3,7 +3,8 @@
 use yii\helpers\Html;
 use yii\helpers\Url;
 
-$this->title = '修改管理员账号 ...';
+$identify = ($identify === 'permission') ? '权限' : '角色';
+$this->title = '修改' . $identify . ' ...';
 ?>
 <div class="site-index">
     <div class="body-content">
@@ -15,43 +16,25 @@ $this->title = '修改管理员账号 ...';
                       action="<?= Url::to([Yii::$app->controller->id . '/' . Yii::$app->controller->action->id]) ?>"
                       method="post">
 
-                    <div class="form-group <?= ($usernameError = $model->getFirstError('username')) ? 'has-error' : '' ?>">
-                        <label class="control-label" for="username">
-                            <?= $usernameError ? '<i class="fa fa-times-circle-o"></i>' : '' ?>
-                            账号
+                    <div class="form-group <?= ($nameError = $model->getFirstError('name')) ? 'has-error' : '' ?>">
+                        <label class="control-label" for="name">
+                            <?= $nameError ? '<i class="fa fa-times-circle-o"></i>' : '' ?>
+                            <?= $identify ?>名称
                         </label>
-                        <?= Html::activeTextInput($model, 'username', ['id' => 'username', 'class' => 'form-control', 'placeholder' => '账号 ...']); ?>
-                        <?= $usernameError ? '<span class="help-block m-b-none">' . $usernameError . '</span>' : '' ?>
+                        <?= Html::activeTextInput($model, 'name', ['id' => 'name', 'class' => 'form-control', 'placeholder' => $identify . '名称 ...']); ?>
+                        <?= $nameError ? '<span class="help-block m-b-none">' . $nameError . '</span>' : '' ?>
                     </div>
 
-                    <div class="form-group <?= ($emailError = $model->getFirstError('email')) ? 'has-error' : '' ?>">
-                        <label class="control-label" for="email">
-                            <?= $emailError ? '<i class="fa fa-times-circle-o"></i>' : '' ?>
-                            邮箱
+                    <div class="form-group <?= ($descriptionError = $model->getFirstError('description')) ? 'has-error' : '' ?>">
+                        <label class="control-label" for="description">
+                            <?= $descriptionError ? '<i class="fa fa-times-circle-o"></i>' : '' ?>
+                            <?= $identify ?>说明
                         </label>
-                        <?= Html::activeTextInput($model, 'email', ['id' => 'username', 'class' => 'form-control', 'placeholder' => '账号 ...']); ?>
-                        <?= $emailError ? '<span class="help-block m-b-none">' . $emailError . '</span>' : '' ?>
+                        <?= Html::activeTextInput($model, 'description', ['id' => 'description', 'class' => 'form-control', 'placeholder' => $identify . '说明 ...']); ?>
+                        <?= $descriptionError ? '<span class="help-block m-b-none">' . $descriptionError . '</span>' : '' ?>
                     </div>
 
-                    <div class="form-group <?= ($passwordError = $model->getFirstError('password')) ? 'has-error' : '' ?>">
-                        <label class="control-label" for="password">
-                            <?= $passwordError ? '<i class="fa fa-times-circle-o"></i>' : '' ?>
-                            密码
-                        </label>
-                        <?= Html::activePasswordInput($model, 'password', ['id' => 'password', 'class' => 'form-control', 'placeholder' => '密码 ...']); ?>
-                        <?= $passwordError ? '<span class="help-block m-b-none">' . $passwordError . '</span>' : '' ?>
-                    </div>
-
-                    <div class="form-group <?= ($passwordConfrimError = $model->getFirstError('passwordConfim')) ? 'has-error' : '' ?>">
-                        <label class="control-label" for="passwordConfim">
-                            <?= $passwordConfrimError ? '<i class="fa fa-times-circle-o"></i>' : '' ?>
-                            确认密码
-                        </label>
-                        <?= Html::activePasswordInput($model, 'passwordConfim', ['id' => 'passwordConfim', 'class' => 'form-control', 'placeholder' => '确认密码 ...']); ?>
-                        <?= $passwordConfrimError ? '<span class="help-block m-b-none">' . $passwordConfrimError . '</span>' : '' ?>
-                    </div>
                     <div class="form-group">
-                        <?= Html::activeHiddenInput($model, 'id') ?>
                         <?= Html::hiddenInput(Yii::$app->request->csrfParam, Yii::$app->request->csrfToken); ?>
                         <?= Html::submitButton('保存内容', ['class' => 'btn btn-primary pull-right']); ?>
                     </div>

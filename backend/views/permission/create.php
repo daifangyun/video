@@ -16,7 +16,7 @@ $this->title = '添加' . $identify . ' ...';
                       action="<?= Url::to([Yii::$app->controller->id . '/' . Yii::$app->controller->action->id]) ?>"
                       method="post">
 
-                    <div class="form-group <?= ($nameError = $model->getFirstError('username')) ? 'has-error' : '' ?>">
+                    <div class="form-group <?= ($nameError = $model->getFirstError('name')) ? 'has-error' : '' ?>">
                         <label class="control-label" for="name">
                             <?= $nameError ? '<i class="fa fa-times-circle-o"></i>' : '' ?>
                             <?= $identify ?>名称
@@ -25,7 +25,7 @@ $this->title = '添加' . $identify . ' ...';
                         <?= $nameError ? '<span class="help-block m-b-none">' . $nameError . '</span>' : '' ?>
                     </div>
 
-                    <div class="form-group <?= ($descriptionError = $model->getFirstError('email')) ? 'has-error' : '' ?>">
+                    <div class="form-group <?= ($descriptionError = $model->getFirstError('description')) ? 'has-error' : '' ?>">
                         <label class="control-label" for="description">
                             <?= $descriptionError ? '<i class="fa fa-times-circle-o"></i>' : '' ?>
                             <?= $identify ?>说明

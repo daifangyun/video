@@ -15,7 +15,12 @@ class BaseController extends Controller
 {
     public function init()
     {
-//        dd(\Yii::$app->authManager);
         parent::init();
+    }
+
+    public function beforeAction($action)
+    {
+//        dd($action->controller->id);
+        return true;
     }
 }

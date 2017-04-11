@@ -38,8 +38,13 @@ $this->title = '文章列表';
                                     <td><?= date('Y-m-d H:i:s', $v->createdAt) ?></td>
                                     <td>
                                         <div class="btn-group">
-                                            <a role="button" class="btn btn-info">修改权限</a>
-                                            <a role="button" class="btn btn-danger">删除权限</a>
+                                            <a role="button" class="btn btn-info"
+                                               href="<?= Url::to([Yii::$app->controller->id . '/edit-permission', 'id' => $v->name]) ?>">
+                                                修改权限
+                                            </a>
+                                            <a role="button" class="btn btn-danger"
+                                               href="<?= Url::to([Yii::$app->controller->id . '/del-permission', 'id' => $v->name]) ?>"
+                                            >删除权限</a>
                                         </div>
                                     </td>
                                 </tr>
