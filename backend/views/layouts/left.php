@@ -59,7 +59,8 @@
                                 'icon' => 'hand-paper-o',
                                 'url' => '#',
                                 'items' => [
-                                    ['label' => '添加权限', 'icon' => 'plus', 'url' => ['/permission/create'],],
+                                    ['label' => '添加权限', 'icon' => 'plus', 'url' => ['/permission/create-permission'],],
+                                    ['label' => '添加角色', 'icon' => 'plus', 'url' => ['/permission/create-role'],],
                                     ['label' => '权限列表', 'icon' => 'list-ul', 'url' => ['/permission/list'],],
                                 ],
                             ],

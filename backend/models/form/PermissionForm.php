@@ -62,4 +62,16 @@ class PermissionForm extends Model
         $createPost->description = $this->description;
         return $auth->add($createPost) ?: false;
     }
+
+    /**
+     * 创建角色
+     * @return bool
+     */
+    public function createRole()
+    {
+        $auth = \Yii::$app->authManager;
+        $role = $auth->createRole($this->name);
+        $role->description = $this->description;
+        return $auth->add($role) ?: false;
+    }
 }

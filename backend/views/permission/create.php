@@ -3,7 +3,8 @@
 use yii\helpers\Html;
 use yii\helpers\Url;
 
-$this->title = '添加权限 ...';
+$identify = ($identify === 'permission') ? '权限' : '角色';
+$this->title = '添加' . $identify . ' ...';
 ?>
 <div class="site-index">
     <div class="body-content">
@@ -18,18 +19,18 @@ $this->title = '添加权限 ...';
                     <div class="form-group <?= ($nameError = $model->getFirstError('username')) ? 'has-error' : '' ?>">
                         <label class="control-label" for="name">
                             <?= $nameError ? '<i class="fa fa-times-circle-o"></i>' : '' ?>
-                            权限名称
+                            <?= $identify ?>名称
                         </label>
-                        <?= Html::activeTextInput($model, 'name', ['id' => 'name', 'class' => 'form-control', 'placeholder' => '权限名称 ...']); ?>
+                        <?= Html::activeTextInput($model, 'name', ['id' => 'name', 'class' => 'form-control', 'placeholder' => $identify . '名称 ...']); ?>
                         <?= $nameError ? '<span class="help-block m-b-none">' . $nameError . '</span>' : '' ?>
                     </div>
 
                     <div class="form-group <?= ($descriptionError = $model->getFirstError('email')) ? 'has-error' : '' ?>">
                         <label class="control-label" for="description">
                             <?= $descriptionError ? '<i class="fa fa-times-circle-o"></i>' : '' ?>
-                            权限说明
+                            <?= $identify ?>说明
                         </label>
-                        <?= Html::activeTextInput($model, 'description', ['id' => 'description', 'class' => 'form-control', 'placeholder' => '权限说明 ...']); ?>
+                        <?= Html::activeTextInput($model, 'description', ['id' => 'description', 'class' => 'form-control', 'placeholder' => $identify . '说明 ...']); ?>
                         <?= $descriptionError ? '<span class="help-block m-b-none">' . $descriptionError . '</span>' : '' ?>
                     </div>
 
