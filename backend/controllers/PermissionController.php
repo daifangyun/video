@@ -10,6 +10,8 @@ namespace backend\controllers;
 
 
 use backend\models\form\PermissionForm;
+use common\models\AuthItem;
+use common\models\AuthItemChild;
 use yii\db\Exception;
 
 class PermissionController extends BaseController
@@ -94,14 +96,32 @@ class PermissionController extends BaseController
 
         if (!$permission) return $this->goBack();
 
-        //获取此权限的角色
-//        $auth->getRole
+        //开启事物
+        $transaction = \Yii::$app->db->beginTransaction();
+        try {
 
-        $permissionForm = new PermissionForm();
-        $permissionForm->name = $permission->name;
-        $permissionForm->description = $permission->description;
+            //删除所有角色下的此权限
+            $childs = AuthItemChild::find()->where(['child' => $id])->all();
+            foreach ($childs as $v) {
+                $delRs = $v->delete();
+                if (!$delRs) throw new Exception('操作失败');
+            }
 
-        return $this->render('edit', ['model' => $permissionForm, 'identify' => 'permission',]);
+            //删除所有权限
+            $permissions = AuthItem::find()->where(['name' => $id, 'type' => AuthItem::TYPE_PERMISSION])->all();
+            foreach ($permissions as $v) {
+                $delRs = $v->delete();
+                if (!$delRs) throw new Exception('操作失败');
+            }
+
+            $transaction->commit();
+
+        } catch (Exception $exception) {
+            $transaction->rollBack();
+        }
+
+
+        return $this->goBack();
     }
 
     /**
