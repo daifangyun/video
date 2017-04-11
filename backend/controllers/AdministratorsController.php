@@ -60,7 +60,7 @@ class AdministratorsController extends BaseController
     }
 
     /**
-     * 修改文章
+     * 修改管理员信息
      * @return string|\yii\web\Response
      */
     public function actionEdit()
@@ -102,6 +102,10 @@ class AdministratorsController extends BaseController
         return $this->render('edit', ['model' => $formModel]);
     }
 
+    /**
+     * 删除管理员
+     * @return \yii\web\Response
+     */
     public function actionDel()
     {
         $formModel = new UserForm();

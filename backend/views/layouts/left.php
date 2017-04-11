@@ -54,6 +54,15 @@
                                     ['label' => '管理员列表', 'icon' => 'list-ul', 'url' => ['/administrators/list'],],
                                 ],
                             ],
+                            [
+                                'label' => '权限管理',
+                                'icon' => 'hand-paper-o',
+                                'url' => '#',
+                                'items' => [
+                                    ['label' => '添加权限', 'icon' => 'plus', 'url' => ['/permission/create'],],
+                                    ['label' => '权限列表', 'icon' => 'list-ul', 'url' => ['/permission/list'],],
+                                ],
+                            ],
                         ],
                     ],
                     ['label' => 'Gii', 'icon' => 'file-code-o', 'url' => ['/gii']],
