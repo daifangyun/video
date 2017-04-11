@@ -26,46 +26,34 @@ $this->title = '文章列表';
                         <table class="table table-hover">
                             <tbody>
                             <tr>
-                                <th>序号</th>
-                                <th>用户名</th>
-                                <th>邮箱</th>
+                                <th>权限名称</th>
+                                <th>权限说明</th>
                                 <th>添加时间</th>
                                 <th>操作</th>
                             </tr>
                             <?php foreach ($list as $k => $v): ?>
                                 <tr>
-                                    <td><?= ++$k ?></td>
-                                    <td><?= Html::encode($v['username']) ?></td>
-                                    <td><?= Html::encode($v['email']) ?></td>
-                                    <td><?= date('Y-m-d H:i:s', $v['created_at']) ?></td>
+                                    <td><?= Html::encode($v->name) ?></td>
+                                    <td><?= Html::encode($v->description) ?></td>
+                                    <td><?= date('Y-m-d H:i:s', $v->createdAt) ?></td>
                                     <td>
-                                        <a href="<?= Url::to([Yii::$app->controller->id . '/edit', 'id' => $v['id']]) ?>"
+                                        <a href="<?= Url::to([Yii::$app->controller->id . '/distribution-permission', 'id' => $v->name]) ?>"
+                                           style="margin-right: 20px;">
+                                            <i class="fa fa-hand-lizard-o"></i>
+                                        </a>
+                                        |
+                                        <a href="<?= Url::to([Yii::$app->controller->id . '/edit', 'id' => $v->name]) ?>"
                                            style="margin-right: 20px;">
                                             <i class="fa fa-edit"></i>
                                         </a>
                                         |
-                                        <a href="<?= Url::to([Yii::$app->controller->id . '/del', 'id' => $v['id']]) ?>"
+                                        <a href="<?= Url::to([Yii::$app->controller->id . '/del', 'id' => $v->name]) ?>"
                                            style="margin-left: 20px;"><i
                                                     class="fa fa-trash text-navy"></i></a>
                                     </td>
                                 </tr>
                             <?php endforeach; ?>
                             </tbody>
-                            <tfoot>
-                            <tr>
-                                <td colspan="6">
-                                    <div class="pull-right">
-                                        <?= \yii\widgets\LinkPager::widget([
-                                            'pagination' => $pages,
-                                            'nextPageLabel' => '下一页',
-                                            'prevPageLabel' => '上一页',
-                                            'firstPageLabel' => '首页',
-                                            'lastPageLabel' => '尾页',
-                                        ]) ?>
-                                    </div>
-                                </td>
-                            </tr>
-                            </tfoot>
                         </table>
                     </div>
                 </div>
