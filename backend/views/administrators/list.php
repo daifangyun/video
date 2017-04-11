@@ -8,6 +8,7 @@ $this->title = '文章列表';
 ?>
 <div class="site-index">
     <div class="body-content">
+        <?= \backend\widget\FormAlertWidget::widget() ?>
         <div class="row">
             <div class="box">
                 <div class="box-header">
@@ -25,17 +26,17 @@ $this->title = '文章列表';
                         <table class="table table-hover">
                             <tbody>
                             <tr>
-                                <th>ID</th>
-                                <th>标题</th>
-                                <th>查看次数</th>
+                                <th>序号</th>
+                                <th>用户名</th>
+                                <th>邮箱</th>
                                 <th>添加时间</th>
                                 <th>操作</th>
                             </tr>
-                            <?php foreach ($articles as $k => $v): ?>
+                            <?php foreach ($list as $k => $v): ?>
                                 <tr>
                                     <td><?= ++$k ?></td>
-                                    <td><?= $v['title'] ?></td>
-                                    <td><?= $v['look'] ?></td>
+                                    <td><?= Html::encode($v['username']) ?></td>
+                                    <td><?= Html::encode($v['email']) ?></td>
                                     <td><?= date('Y-m-d H:i:s', $v['created_at']) ?></td>
                                     <td>
                                         <a href="<?= Url::to([Yii::$app->controller->id . '/edit', 'id' => $v['id']]) ?>"

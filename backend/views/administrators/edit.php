@@ -1,49 +1,55 @@
 <?php
 
-use backend\assets\AppAsset;
 use yii\helpers\Html;
 use yii\helpers\Url;
 
-AppAsset::addJsFile($this, [
-    "plugins/ueditor/ueditor.config.js",
-    "plugins/ueditor/ueditor.all.min.js",
-    "plugins/ueditor/lang/zh-cn/zh-cn.js",
-]);
-
-$this->title = '修改文章';
+$this->title = '修改管理员账号 ...';
 ?>
 <div class="site-index">
     <div class="body-content">
-        <?php
-//        $errors = $model->errors;
-//        dd($errors)
-        ?>
+        <?= \backend\widget\FormAlertWidget::widget(); ?>
+
         <div class="row">
             <div class="box-body">
                 <form role="form"
                       action="<?= Url::to([Yii::$app->controller->id . '/' . Yii::$app->controller->action->id]) ?>"
                       method="post">
 
-                    <div class="form-group">
-                        <label>文章标题</label>
-                        <?= Html::activeTextInput($model, 'title', ['class' => 'form-control', 'placeholder' => '文章标题 ...']); ?>
-                        <span class="help-block"><?= $model->getFirstError('title'); ?></span>
+                    <div class="form-group <?= ($usernameError = $model->getFirstError('username')) ? 'has-error' : '' ?>">
+                        <label class="control-label" for="username">
+                            <?= $usernameError ? '<i class="fa fa-times-circle-o"></i>' : '' ?>
+                            账号
+                        </label>
+                        <?= Html::activeTextInput($model, 'username', ['id' => 'username', 'class' => 'form-control', 'placeholder' => '账号 ...']); ?>
+                        <?= $usernameError ? '<span class="help-block m-b-none">' . $usernameError . '</span>' : '' ?>
                     </div>
 
-                    <div class="form-group">
-                        <label>文章摘要</label>
-                        <?= Html::activeTextarea($model, 'abstract', ['class' => 'form-control', 'placeholder' => '文章摘要 ...']); ?>
-                        <span class="help-block"><?= $model->getFirstError('abstract'); ?></span>
+                    <div class="form-group <?= ($emailError = $model->getFirstError('email')) ? 'has-error' : '' ?>">
+                        <label class="control-label" for="email">
+                            <?= $emailError ? '<i class="fa fa-times-circle-o"></i>' : '' ?>
+                            邮箱
+                        </label>
+                        <?= Html::activeTextInput($model, 'email', ['id' => 'username', 'class' => 'form-control', 'placeholder' => '账号 ...']); ?>
+                        <?= $emailError ? '<span class="help-block m-b-none">' . $emailError . '</span>' : '' ?>
                     </div>
 
-                    <div class="form-group">
-                        <label>文章详情</label>
-                        <?= Html::activeTextarea($model, 'content', ['id' => 'editor', 'type' => 'text/plain', 'style' => 'width:100%;height:450px;']); ?>
-                        <span class="help-block m-b-none">
-                            <?= $model->getFirstError('content'); ?>
-                        </span>
+                    <div class="form-group <?= ($passwordError = $model->getFirstError('password')) ? 'has-error' : '' ?>">
+                        <label class="control-label" for="password">
+                            <?= $passwordError ? '<i class="fa fa-times-circle-o"></i>' : '' ?>
+                            密码
+                        </label>
+                        <?= Html::activePasswordInput($model, 'password', ['id' => 'password', 'class' => 'form-control', 'placeholder' => '密码 ...']); ?>
+                        <?= $passwordError ? '<span class="help-block m-b-none">' . $passwordError . '</span>' : '' ?>
                     </div>
 
+                    <div class="form-group <?= ($passwordConfrimError = $model->getFirstError('passwordConfim')) ? 'has-error' : '' ?>">
+                        <label class="control-label" for="passwordConfim">
+                            <?= $passwordConfrimError ? '<i class="fa fa-times-circle-o"></i>' : '' ?>
+                            确认密码
+                        </label>
+                        <?= Html::activePasswordInput($model, 'passwordConfim', ['id' => 'passwordConfim', 'class' => 'form-control', 'placeholder' => '确认密码 ...']); ?>
+                        <?= $passwordConfrimError ? '<span class="help-block m-b-none">' . $passwordConfrimError . '</span>' : '' ?>
+                    </div>
                     <div class="form-group">
                         <?= Html::activeHiddenInput($model, 'id') ?>
                         <?= Html::hiddenInput(Yii::$app->request->csrfParam, Yii::$app->request->csrfToken); ?>
@@ -57,12 +63,6 @@ $this->title = '修改文章';
 
 <?php $this->beginBlock('myJs'); ?>
 <script>
-    $(function () {
-        var ue = UE.getEditor('editor', {
-//            serverUrl: imageUploadUrl
-        });
-    });
-
 </script>
 
 <?php $this->endBlock(); ?>
