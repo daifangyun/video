@@ -139,7 +139,62 @@ class PermissionController extends BaseController
             //循环创建关系
             foreach ($postRoles as $k => $v) {
                 $parent = $auth->createRole($v);    //创建角色对象
-                $addRs = $auth->addChild($parent, $child);  //添加对应关系
+                $auth->addChild($parent, $child);  //添加对应关系
+            }
+            return $this->redirect([\Yii::$app->controller->id . '/list-permission']);
+        }
+    }
+
+    /**
+     * 将权限分配给角色
+     * @return string|\yii\web\Response
+     */
+    public function actionDistributionRole()
+    {
+        if (\Yii::$app->request->isGet) {
+            //获取权限id
+            $id = \Yii::$app->request->get('id');
+            if (!$id) {
+                return $this->goHome();
+            }
+            $auth = \Yii::$app->authManager;
+            $role = $auth->getRole($id);
+            if (!$role) {
+                return $this->goHome();
+            }
+
+            //获取所有角色
+            $permissions = $auth->getPermissions();
+            return $this->render('distribution-role', ['list' => $permissions, 'role' => $role]);
+        }
+
+        if (\Yii::$app->request->isPost) {
+            $postPermission = \Yii::$app->request->post('permission');
+            $postRole = \Yii::$app->request->post('role');
+            if (!$postRole || empty($postPermission)) {
+                return $this->goBack();
+            }
+
+            $auth = \Yii::$app->authManager;
+
+            //创建角色对象
+            $parent = $auth->createRole($postRole);
+
+            if (!$parent) {
+                return $this->goBack();
+            }
+
+            //先删除角色的所有权限
+            $auth->removeAllPermissions();
+            $roles = $auth->getRoles();
+            foreach ($roles as $v) {
+                $auth->removeChild($v, $child);
+            }
+
+            //循环创建关系
+            foreach ($postRoles as $k => $v) {
+                $parent = $auth->createRole($v);    //创建角色对象
+                $auth->addChild($parent, $child);  //添加对应关系
             }
             return $this->redirect([\Yii::$app->controller->id . '/list-permission']);
         }
