@@ -39,14 +39,14 @@ $this->title = '文章列表';
                                     <td><?= Html::encode($v['email']) ?></td>
                                     <td><?= date('Y-m-d H:i:s', $v['created_at']) ?></td>
                                     <td>
-                                        <a href="<?= Url::to([Yii::$app->controller->id . '/edit', 'id' => $v['id']]) ?>"
-                                           style="margin-right: 20px;">
-                                            <i class="fa fa-edit"></i>
-                                        </a>
-                                        |
-                                        <a href="<?= Url::to([Yii::$app->controller->id . '/del', 'id' => $v['id']]) ?>"
-                                           style="margin-left: 20px;"><i
-                                                    class="fa fa-trash text-navy"></i></a>
+                                        <div class="btn-group">
+                                            <a role="button" class="btn btn-default"
+                                               href="<?= Url::to([Yii::$app->controller->id . '/distribution-role-to-administrators', 'id' => $v['id']]) ?>">
+                                                分配角色
+                                            </a>
+                                            <a role="button" class="btn btn-info" href="<?= Url::to([Yii::$app->controller->id . '/edit', 'id' => $v['id']]) ?>">修改角色</a>
+                                            <a role="button" class="btn btn-danger" href="<?= Url::to([Yii::$app->controller->id . '/del', 'id' => $v['id']]) ?>">删除角色</a>
+                                        </div>
                                     </td>
                                 </tr>
                             <?php endforeach; ?>

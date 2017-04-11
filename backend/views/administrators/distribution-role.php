@@ -30,19 +30,19 @@ $auth = Yii::$app->authManager;
                         <div class="form-group">
                             <?php foreach ($list as $k => $v): ?>
                                 <!--查看改角色是否已经拥有了该权限-->
-                                <?php $hasPermission = $auth->hasChild($role, $v) ?>
+                                <?php $hasRoles = $auth->getAssignment($v->name, $id) ?>
                                 <div class="checkbox-inline">
                                     <label>
-                                        <input type="checkbox" name="permission[]"
+                                        <input type="checkbox" name="roles[]"
                                                value="<?= Html::decode($v->name) ?>"
-                                            <?= $hasPermission ? 'checked' : '' ?> />
+                                            <?= $hasRoles ? 'checked' : '' ?> />
                                         <?= Html::decode($v->name) ?>
                                     </label>
                                 </div>
                             <?php endforeach; ?>
                         </div>
                         <div class="form-group">
-                            <?= Html::hiddenInput('role', $role->name); ?>
+                            <?= Html::hiddenInput('id', $id); ?>
                             <?= Html::hiddenInput(Yii::$app->request->csrfParam, Yii::$app->request->csrfToken); ?>
                             <?= Html::submitButton('保存内容', ['class' => 'btn btn-primary']); ?>
                         </div>

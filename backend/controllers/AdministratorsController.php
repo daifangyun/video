@@ -124,4 +124,46 @@ class AdministratorsController extends BaseController
 
         return $this->redirect([\Yii::$app->controller->id . '/list']);
     }
+
+    /**
+     * 给用户分陪角色
+     * @return string|\yii\web\Response
+     */
+    public function actionDistributionRoleToAdministrators()
+    {
+        if (\Yii::$app->request->isGet) {
+            //获取权限id
+            $id = (int)\Yii::$app->request->get('id');
+            if (!$id) {
+                return $this->goHome();
+            }
+            $auth = \Yii::$app->authManager;
+
+            //获取所有角色
+            $roles = $auth->getRoles();
+
+            return $this->render('distribution-role', ['list' => $roles, 'id' => $id]);
+        }
+
+        if (\Yii::$app->request->isPost) {
+            $id = \Yii::$app->request->post('id');
+            $postRoles = \Yii::$app->request->post('roles');
+            if (!$id || empty($postRoles)) {
+                return $this->goBack();
+            }
+
+
+            $auth = \Yii::$app->authManager;
+
+            //删除该管理员的所有角色
+            $auth->revokeAll($id);
+
+            //循环给管理员创建角色
+            foreach ($postRoles as $k => $v) {
+                $role = $auth->createRole($v);    //创建角色对象
+                $auth->assign($role, $id);  //添加对应关系
+            }
+            return $this->redirect([\Yii::$app->controller->id . '/list']);
+        }
+    }
 }
