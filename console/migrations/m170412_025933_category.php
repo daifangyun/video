@@ -24,6 +24,34 @@ class m170412_025933_category extends Migration
             'created_at' => $this->integer()->notNull()->comment('创建时间'),
             'updated_at' => $this->integer()->notNull()->comment('最后修改时间'),
         ], $tableOptions);
+
+        //插入一条数据
+        $this->insert($this->tableName, [
+            'name' => '	字体设计',
+            'pid' => 0,
+            'sort' => 1,
+            'status' => 1,
+            'created_at' => time(),
+            'updated_at' => time(),
+        ]);
+        //插入一条数据
+        $this->insert($this->tableName, [
+            'name' => '	软件设计',
+            'pid' => 0,
+            'sort' => 2,
+            'status' => 1,
+            'created_at' => time(),
+            'updated_at' => time(),
+        ]);
+        //插入一条数据
+        $this->insert($this->tableName, [
+            'name' => '	海报设计',
+            'pid' => 0,
+            'sort' => 3,
+            'status' => 1,
+            'created_at' => time(),
+            'updated_at' => time(),
+        ]);
     }
 
     public function down()

@@ -15,4 +15,6 @@ class TagForm extends Model
 {
     public $name;
     public $sort;
+    public $cid;
+    public $status;
 }

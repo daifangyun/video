@@ -17,6 +17,7 @@ class m170412_032015_tag extends Migration
             'id' => $this->primaryKey()->comment('自增id'),
 
             'name' => $this->string(50)->notNull()->defaultValue('')->comment('标签名称'),
+            'pid' => $this->integer(11)->defaultValue(0)->comment('0:顶级分类 || > 0 对应id列的值'),
             'cid' => $this->integer(11)->notNull()->defaultValue(0)->comment('所属分类,分类表中的顶级分类ID'),
 
             'sort' => $this->integer(4)->defaultValue(0)->comment('排序,按照由大到小的顺序排,大的在前边,小的在后边'),

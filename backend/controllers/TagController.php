@@ -11,6 +11,7 @@ namespace backend\controllers;
 
 use backend\models\CategoryModel;
 use backend\models\form\CategoryForm;
+use backend\models\form\TagForm;
 use yii\data\Pagination;
 
 class TagController extends BaseController
@@ -21,7 +22,7 @@ class TagController extends BaseController
      */
     public function actionCreate()
     {
-        $formModel = new CategoryForm();
+        $formModel = new TagForm();
 
         /**
          * 如果为get提交展示创建视图
