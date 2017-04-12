@@ -2,8 +2,10 @@
 
 use yii\db\Migration;
 
-class m170307_031511_article extends Migration
+class m170412_032406_video_tags extends Migration
 {
+    private $tableName = '{{%video_tags}}';
+
     public function up()
     {
         $tableOptions = null;
@@ -11,12 +13,12 @@ class m170307_031511_article extends Migration
             $tableOptions = 'CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE=InnoDB';
         }
 
-        $this->createTable('{{%article}}', [
+        $this->createTable($this->tableName, [
             'id' => $this->primaryKey()->comment('自增id'),
-            'title' => $this->string(255)->notNull()->comment('文章标题'),
-            'abstract' => $this->string(255)->notNull()->comment('文章摘要'),
-            'look' => $this->integer(11)->notNull()->defaultValue(0)->comment('查看次数'),
-            'content' => $this->text()->comment('文章详情'),
+
+            'vid' => $this->integer(11)->notNull()->defaultValue(0)->comment('视频id'),
+            'tid' => $this->integer(11)->notNull()->defaultValue(0)->comment('标签id'),
+
             'status' => $this->smallInteger(1)->defaultValue(1)->comment('是否有效,1:有效,0:无效'),
             'created_at' => $this->integer()->notNull()->comment('创建时间'),
             'updated_at' => $this->integer()->notNull()->comment('最后修改时间'),
@@ -25,7 +27,7 @@ class m170307_031511_article extends Migration
 
     public function down()
     {
-        $this->dropTable('{{%article}}');
+        $this->dropTable($this->tableName);
     }
 
     /*
