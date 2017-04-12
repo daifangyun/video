@@ -38,7 +38,7 @@
                         'items' => [
                             [
                                 'label' => '分类管理',
-                                'icon' => 'tags',
+                                'icon' => 'th-list',
                                 'url' => '#',
                                 'items' => [
                                     ['label' => '添加分类', 'icon' => 'plus', 'url' => ['/category/create'],],
@@ -46,14 +46,12 @@
                                 ],
                             ],
                             [
-                                'label' => '权限管理',
-                                'icon' => 'hand-paper-o',
+                                'label' => '标签管理',
+                                'icon' => 'tags',
                                 'url' => '#',
                                 'items' => [
-                                    ['label' => '添加角色', 'icon' => 'plus', 'url' => ['/permission/create-role'],],
-                                    ['label' => '角色列表', 'icon' => 'list-ul', 'url' => ['/permission/list-role'],],
-                                    ['label' => '添加权限', 'icon' => 'plus', 'url' => ['/permission/create-permission'],],
-                                    ['label' => '权限列表', 'icon' => 'list-ul', 'url' => ['/permission/list-permission'],],
+                                    ['label' => '添加标签', 'icon' => 'plus', 'url' => ['/tag/create'],],
+                                    ['label' => '标签列表', 'icon' => 'list-ul', 'url' => ['/tag/list'],],
                                 ],
                             ],
                         ],
