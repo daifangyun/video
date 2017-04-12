@@ -19,7 +19,6 @@ class UserForm extends Model
     public $username;
     public $password;
     public $passwordConfim;
-    public $email;
 
     private $_administrators;
 
@@ -35,7 +34,7 @@ class UserForm extends Model
                 'tooLong' => '{attribute}最长为25位',
                 'tooShort' => '{attribute}最少6位',
             ],
-            ['email', 'email', 'message' => '邮箱格式错误'],
+//            ['email', 'email', 'message' => '邮箱格式错误'],
             ['passwordConfim', 'compare', 'compareAttribute' => 'password', 'message' => '两次密码不相同'],
             ['username', 'unique', 'targetClass' => '\backend\models\UserModel', 'filter' => function ($query) {
                 $scenario = self::getScenario();
@@ -51,8 +50,8 @@ class UserForm extends Model
     public function scenarios()
     {
         $scenarios = parent::scenarios();
-        $scenarios[self::SCENARIO_CREATE] = ['username', 'password', 'passwordConfim', 'email'];
-        $scenarios[self::SCENARIO_EDIT] = ['id', 'username', 'password', 'passwordConfim', 'email'];
+        $scenarios[self::SCENARIO_CREATE] = ['username', 'password', 'passwordConfim',];
+        $scenarios[self::SCENARIO_EDIT] = ['id', 'username', 'password', 'passwordConfim'];
         return $scenarios;
     }
 
@@ -62,7 +61,6 @@ class UserForm extends Model
             'username' => '账号',
             'password' => '密码',
             'passwordConfim' => '确认密码',
-            'email' => '邮箱',
         ];
     }
 
@@ -75,7 +73,6 @@ class UserForm extends Model
         $userModel = new UserModel();
         $userModel->username = $this->username;
         $userModel->password_hash = \Yii::$app->security->generatePasswordHash($this->password);
-        $userModel->email = $this->email;
         return $userModel->save() ? $userModel : false;
     }
 
@@ -102,7 +99,6 @@ class UserForm extends Model
 
         $this->_administrators->username = $this->username;
         $this->_administrators->password_hash = \Yii::$app->security->generatePasswordHash($this->username);
-        $this->_administrators->email = $this->email;
         return $this->_administrators->save() ?: false;
     }
 

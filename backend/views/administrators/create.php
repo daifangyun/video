@@ -24,15 +24,6 @@ $this->title = '添加管理员账号 ...';
                         <?= $usernameError ? '<span class="help-block m-b-none">' . $usernameError . '</span>' : '' ?>
                     </div>
 
-                    <div class="form-group <?= ($emailError = $model->getFirstError('email')) ? 'has-error' : '' ?>">
-                        <label class="control-label" for="email">
-                            <?= $emailError ? '<i class="fa fa-times-circle-o"></i>' : '' ?>
-                            邮箱
-                        </label>
-                        <?= Html::activeTextInput($model, 'email', ['id' => 'username', 'class' => 'form-control', 'placeholder' => '账号 ...']); ?>
-                        <?= $emailError ? '<span class="help-block m-b-none">' . $emailError . '</span>' : '' ?>
-                    </div>
-
                     <div class="form-group <?= ($passwordError = $model->getFirstError('password')) ? 'has-error' : '' ?>">
                         <label class="control-label" for="password">
                             <?= $passwordError ? '<i class="fa fa-times-circle-o"></i>' : '' ?>
