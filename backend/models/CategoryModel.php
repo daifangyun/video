@@ -28,4 +28,16 @@ class CategoryModel extends Category
         $category->status = self::STATUS_DELETE;
         return $category->save();
     }
+
+    /**
+     * 获取所有有效的分类列表
+     * @return array|\yii\db\ActiveRecord[]
+     */
+    public static function getAllEnableCategory()
+    {
+        return self::find()
+            ->where(['<>', 'status', self::STATUS_DELETE])
+            ->asArray()
+            ->all();
+    }
 }

@@ -27,8 +27,8 @@ $this->title = '文章列表';
                             <tbody>
                             <tr>
                                 <th>序号</th>
-                                <th>分类名称</th>
-                                <th>分类排序</th>
+                                <th>标签名称</th>
+                                <th>标签排序</th>
                                 <th>是否启用</th>
                                 <th>添加时间</th>
                                 <th>操作</th>

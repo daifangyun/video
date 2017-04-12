@@ -12,6 +12,7 @@ namespace backend\controllers;
 use backend\models\CategoryModel;
 use backend\models\form\CategoryForm;
 use backend\models\form\TagForm;
+use backend\models\TagModel;
 use yii\data\Pagination;
 
 class TagController extends BaseController
@@ -28,8 +29,31 @@ class TagController extends BaseController
          * 如果为get提交展示创建视图
          */
         if (\Yii::$app->request->isGet) {
+
+            /**
+             * 获取分类列表,因为标签是挂在分类下的
+             */
+            $categorys = CategoryModel::getAllEnableCategory();
+            if (empty($categorys)) {
+                $emptyCateogry = ['id' => 0, 'name' => '没有分类，请先去添加分类'];
+                array_unshift($categorys, $emptyCateogry);
+            }
+
+
+            /**
+             * 获取所有标签列表，因为可能给标签添加子标签
+             */
+            $tags = TagModel::getAllEnableTags();
+            $topTag = ['id' => 0, 'name' => '顶级标签'];
+            array_unshift($tags, $topTag);
+
             $formModel->status = 1;
-            return $this->render('create', ['model' => $formModel]);
+
+            return $this->render('create', [
+                'model' => $formModel,
+                'categorys' => $categorys,
+                'tags' => $tags,
+            ]);
         }
 
         /**
@@ -39,14 +63,12 @@ class TagController extends BaseController
 
             $session = \Yii::$app->session;
 
-            $formModel->setScenario(CategoryForm::SCENARIOS_CREATE);
+            $formModel->setScenario(TagForm::SCENARIOS_CREATE);
             if ($formModel->load(\Yii::$app->request->post())) {
                 if ($formModel->create() !== false) {
-                    $formModel->name = '';
-                    $formModel->pid = 0;
-                    $formModel->sort = '';
-                    $formModel->status = 1;
+
                     $session->setFlash('formSuccess', '提交成功 ...');
+                    return $this->redirect([\Yii::$app->controller->id . '/' . \Yii::$app->controller->action->id]);
                 } else {
                     $session->setFlash('formError', '提交失败 ...');
                 }
@@ -54,7 +76,30 @@ class TagController extends BaseController
                 $session->setFlash('formError', '提交失败 ...');
             }
 
-            return $this->render('create', ['model' => $formModel]);
+            /**
+             * 获取分类列表,因为标签是挂在分类下的
+             */
+            $categorys = CategoryModel::getAllEnableCategory();
+            if (empty($categorys)) {
+                $emptyCateogry = ['id' => 0, 'name' => '没有分类，请先去添加分类'];
+                array_unshift($categorys, $emptyCateogry);
+            }
+
+
+            /**
+             * 获取所有标签列表，因为可能给标签添加子标签
+             */
+            $tags = TagModel::getAllEnableTags();
+            $topTag = ['id' => 0, 'name' => '顶级标签'];
+            array_unshift($tags, $topTag);
+
+            $formModel->status = 1;
+
+            return $this->render('create', [
+                'model' => $formModel,
+                'categorys' => $categorys,
+                'tags' => $tags,
+            ]);
         }
     }
 
@@ -64,7 +109,7 @@ class TagController extends BaseController
      */
     public function actionList()
     {
-        $query = CategoryModel::find()->where(['<>', 'status', CategoryModel::STATUS_DELETE]);
+        $query = TagModel::find()->where(['<>', 'status', CategoryModel::STATUS_DELETE]);
         $count = $query->count();
         $pages = new Pagination(['totalCount' => $count, 'pageSize' => 10]);
         $list = $query->orderBy('sort desc')->offset($pages->offset)->limit($pages->limit)->asArray()->all();
@@ -77,7 +122,7 @@ class TagController extends BaseController
      */
     public function actionEdit()
     {
-        $formModel = new CategoryForm();
+        $formModel = new TagForm();
 
         /**
          * 如果为get提交展示创建视图
@@ -88,16 +133,38 @@ class TagController extends BaseController
             if (!$id) return $this->goBack();
 
             $formModel->id = $id;
-            $category = $formModel->getCategoryById();
-            if ($category === false) {
+            $model = $formModel->getTagById();
+            if ($model === false) {
                 return $this->goBack();
             }
-            $formModel->name = $category->name;
-            $formModel->pid = $category->pid;
-            $formModel->sort = $category->sort;
-            $formModel->status = $category->status;
+            $formModel->name = $model->name;
+            $formModel->pid = $model->pid;
+            $formModel->cid = $model->cid;
+            $formModel->sort = $model->sort;
+            $formModel->status = $model->status;
 
-            return $this->render('edit', ['model' => $formModel]);
+            /**
+             * 获取分类列表,因为标签是挂在分类下的
+             */
+            $categorys = CategoryModel::getAllEnableCategory();
+            if (empty($categorys)) {
+                $emptyCateogry = ['id' => 0, 'name' => '没有分类，请先去添加分类'];
+                array_unshift($categorys, $emptyCateogry);
+            }
+
+
+            /**
+             * 获取所有标签列表，因为可能给标签添加子标签
+             */
+            $tags = TagModel::getAllEnableTags();
+            $topTag = ['id' => 0, 'name' => '顶级标签'];
+            array_unshift($tags, $topTag);
+
+            return $this->render('edit', [
+                'model' => $formModel,
+                'categorys' => $categorys,
+                'tags' => $tags,
+            ]);
         }
 
         /**
@@ -107,7 +174,7 @@ class TagController extends BaseController
 
             $session = \Yii::$app->session;
 
-            $formModel->setScenario(CategoryForm::SCENARIO_UPDATE);
+            $formModel->setScenario(TagForm::SCENARIO_UPDATE);
             if ($formModel->load(\Yii::$app->request->post())) {
                 if ($formModel->edit() !== false) {
                     $session->setFlash('formSuccess', '提交成功 ...');
@@ -118,7 +185,28 @@ class TagController extends BaseController
                 $session->setFlash('formError', '提交失败 ...');
             }
 
-            return $this->render('edit', ['model' => $formModel]);
+            /**
+             * 获取分类列表,因为标签是挂在分类下的
+             */
+            $categorys = CategoryModel::getAllEnableCategory();
+            if (empty($categorys)) {
+                $emptyCateogry = ['id' => 0, 'name' => '没有分类，请先去添加分类'];
+                array_unshift($categorys, $emptyCateogry);
+            }
+
+
+            /**
+             * 获取所有标签列表，因为可能给标签添加子标签
+             */
+            $tags = TagModel::getAllEnableTags();
+            $topTag = ['id' => 0, 'name' => '顶级标签'];
+            array_unshift($tags, $topTag);
+
+            return $this->render('edit', [
+                'model' => $formModel,
+                'categorys' => $categorys,
+                'tags' => $tags,
+            ]);
         }
     }
 
@@ -132,7 +220,7 @@ class TagController extends BaseController
 
         if (!$id) return $this->goBack();
 
-        $delRs = CategoryModel::delById($id);
+        $delRs = TagModel::delById($id);
 
         $session = \Yii::$app->session;
         if ($delRs) {

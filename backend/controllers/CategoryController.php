@@ -41,11 +41,9 @@ class CategoryController extends BaseController
             $formModel->setScenario(CategoryForm::SCENARIOS_CREATE);
             if ($formModel->load(\Yii::$app->request->post())) {
                 if ($formModel->create() !== false) {
-                    $formModel->name = '';
-                    $formModel->pid = 0;
-                    $formModel->sort = '';
-                    $formModel->status = 1;
+
                     $session->setFlash('formSuccess', '提交成功 ...');
+                    return $this->redirect([\Yii::$app->controller->id . '/' . \Yii::$app->controller->action->id]);
                 } else {
                     $session->setFlash('formError', '提交失败 ...');
                 }

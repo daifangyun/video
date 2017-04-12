@@ -3,6 +3,7 @@
 namespace common\models;
 
 use Yii;
+use yii\behaviors\TimestampBehavior;
 
 /**
  * This is the model class for table "{{%tag}}".
@@ -10,12 +11,19 @@ use Yii;
  * @property integer $id
  * @property string $name
  * @property integer $sort
+ * @property integer $pid
+ * @property integer $cid
  * @property integer $status
  * @property integer $created_at
  * @property integer $updated_at
  */
 class Tag extends \yii\db\ActiveRecord
 {
+
+    const STATUS_ENABLE = 1;
+    const STATUS_DISABLE = 0;
+    const STATUS_DELETE = -1;
+
     /**
      * @inheritdoc
      */
@@ -24,30 +32,10 @@ class Tag extends \yii\db\ActiveRecord
         return '{{%tag}}';
     }
 
-    /**
-     * @inheritdoc
-     */
-    public function rules()
+    public function behaviors()
     {
         return [
-            [['sort', 'status', 'created_at', 'updated_at'], 'integer'],
-            [['created_at', 'updated_at'], 'required'],
-            [['name'], 'string', 'max' => 50],
-        ];
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function attributeLabels()
-    {
-        return [
-            'id' => 'ID',
-            'name' => 'Name',
-            'sort' => 'Sort',
-            'status' => 'Status',
-            'created_at' => 'Created At',
-            'updated_at' => 'Updated At',
+            TimestampBehavior::className(),
         ];
     }
 }

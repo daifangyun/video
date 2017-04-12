@@ -1,7 +1,16 @@
 <?php
 
+use backend\assets\AppAsset;
 use yii\helpers\Html;
 use yii\helpers\Url;
+
+AppAsset::addCssFile($this, [
+    'plugins/select2/select2.css',
+]);
+
+AppAsset::addJsFile($this, [
+    'plugins/select2/select2.full.js',
+]);
 
 $this->title = '添加标签 ...';
 ?>
@@ -20,16 +29,18 @@ $this->title = '添加标签 ...';
                       method="post">
 
                     <div class="form-group">
-                        <label>Minimal</label>
-                        <select class="form-control select2 select2-hidden-accessible" style="width: 100%;" tabindex="-1" aria-hidden="true">
-                            <option selected="selected">Alabama</option>
-                            <option>Alaska</option>
-                            <option>California</option>
-                            <option>Delaware</option>
-                            <option>Tennessee</option>
-                            <option>Texas</option>
-                            <option>Washington</option>
-                        </select><span class="select2 select2-container select2-container--default" dir="ltr" style="width: 100%;"><span class="selection"><span class="select2-selection select2-selection--single" role="combobox" aria-haspopup="true" aria-expanded="false" tabindex="0" aria-labelledby="select2-cj82-container"><span class="select2-selection__rendered" id="select2-cj82-container" title="Alabama">Alabama</span><span class="select2-selection__arrow" role="presentation"><b role="presentation"></b></span></span></span><span class="dropdown-wrapper" aria-hidden="true"></span></span>
+                        <label>所属分类</label>
+                        <select class="form-control select2 select2-hidden-accessible"
+                                style="width: 100%;"
+                                tabindex="-1" aria-hidden="true"
+                                name="TagForm[cid]"
+                        >
+                            <?php foreach ($categorys as $k => $v): ?>
+                                <option <?php if ($k == 0) 'selected="selected"' ?> value="<?= $v['id'] ?>">
+                                    <?= $v['name'] ?>
+                                </option>
+                            <?php endforeach; ?>
+                        </select>
                     </div>
 
                     <div class="form-group <?= ($nameError = $model->getFirstError('name')) ? 'has-error' : '' ?>">
@@ -39,6 +50,21 @@ $this->title = '添加标签 ...';
                         </label>
                         <?= Html::activeTextInput($model, 'name', ['id' => 'name', 'class' => 'form-control', 'placeholder' => '标签名称 ...']); ?>
                         <?= $nameError ? '<span class="help-block m-b-none">' . $nameError . '</span>' : '' ?>
+                    </div>
+
+                    <div class="form-group">
+                        <label>父级分类</label>
+                        <select class="form-control select2 select2-hidden-accessible"
+                                style="width: 100%;"
+                                tabindex="-1" aria-hidden="true"
+                                name="TagForm[pid]"
+                        >
+                            <?php foreach ($tags as $k => $v): ?>
+                                <option <?php if ($k == 0) 'selected="selected"' ?> value="<?= $v['id'] ?>">
+                                    <?= $v['name'] ?>
+                                </option>
+                            <?php endforeach; ?>
+                        </select>
                     </div>
 
                     <div class="form-group <?= ($sortError = $model->getFirstError('sort')) ? 'has-error' : '' ?>">
