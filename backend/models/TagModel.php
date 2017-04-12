@@ -13,6 +13,11 @@ use common\models\Tag;
 
 class TagModel extends Tag
 {
+    public function getCategory()
+    {
+        return $this->hasOne(CategoryModel::className(), ['id' => 'cid']);
+    }
+
     /**
      * 获取所有有效的标签列表
      * @return array|\yii\db\ActiveRecord[]

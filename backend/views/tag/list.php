@@ -28,6 +28,7 @@ $this->title = '文章列表';
                             <tr>
                                 <th>序号</th>
                                 <th>标签名称</th>
+                                <th>所属分类</th>
                                 <th>标签排序</th>
                                 <th>是否启用</th>
                                 <th>添加时间</th>
@@ -37,6 +38,7 @@ $this->title = '文章列表';
                                 <tr>
                                     <td><?= ++$k ?></td>
                                     <td><?= Html::encode($v['name']) ?></td>
+                                    <td><?= Html::encode($v['category']['name']) ?></td>
                                     <td><?= Html::encode($v['sort']) ?></td>
                                     <td>
                                         <?php

@@ -109,10 +109,15 @@ class TagController extends BaseController
      */
     public function actionList()
     {
-        $query = TagModel::find()->where(['<>', 'status', CategoryModel::STATUS_DELETE]);
+        $query = TagModel::find()->where(['<>', TagModel::tableName() . '.status', CategoryModel::STATUS_DELETE]);
         $count = $query->count();
         $pages = new Pagination(['totalCount' => $count, 'pageSize' => 10]);
-        $list = $query->orderBy('sort desc')->offset($pages->offset)->limit($pages->limit)->asArray()->all();
+        $list = $query->orderBy('sort desc')
+            ->innerJoinWith('category')
+            ->offset($pages->offset)
+            ->limit($pages->limit)
+            ->asArray()
+            ->all();
         return $this->render('list', ['list' => $list, 'pages' => $pages]);
     }
 
@@ -159,7 +164,7 @@ class TagController extends BaseController
             $tags = TagModel::getAllEnableTags();
             $topTag = ['id' => 0, 'name' => '顶级标签'];
             array_unshift($tags, $topTag);
-
+//dd($categorys);
             return $this->render('edit', [
                 'model' => $formModel,
                 'categorys' => $categorys,

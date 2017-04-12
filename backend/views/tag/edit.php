@@ -18,7 +18,7 @@ $this->title = '修改标签 ...';
     <div class="body-content">
         <?= \backend\widget\BreadcrumbWidget::widget([
             'level' => ['标签' => Url::to([Yii::$app->controller->id . '/list'])],
-            'active' => '添加标签',
+            'active' => '修改标签',
         ]); ?>
         <?= \backend\widget\FormAlertWidget::widget(); ?>
 
@@ -54,7 +54,7 @@ $this->title = '修改标签 ...';
                     </div>
 
                     <div class="form-group">
-                        <label>父级分类</label>
+                        <label>父级标签</label>
                         <select class="form-control select2 select2-hidden-accessible"
                                 style="width: 100%;"
                                 tabindex="-1" aria-hidden="true"
