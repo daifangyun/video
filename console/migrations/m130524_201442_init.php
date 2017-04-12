@@ -21,7 +21,7 @@ class m130524_201442_init extends Migration
 //            'email' => $this->string()->notNull()->unique()->comment('邮箱'),
             'nickname' => $this->string(30)->notNull()->defaultValue('')->comment('昵称'),
 
-            'status' => $this->smallInteger()->notNull()->defaultValue(10)->comment('账号状态,10:启用:0:不启用'),
+            'status' => $this->smallInteger()->notNull()->defaultValue(10)->comment('账号状态,10:启用:0:不启用,-1:永久删除'),
             'created_at' => $this->integer()->notNull()->defaultValue(0)->comment('创建时间'),
             'updated_at' => $this->integer()->notNull()->defaultValue(0)->comment('最后修改时间'),
         ], $tableOptions);

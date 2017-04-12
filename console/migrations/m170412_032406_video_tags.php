@@ -19,7 +19,7 @@ class m170412_032406_video_tags extends Migration
             'vid' => $this->integer(11)->notNull()->defaultValue(0)->comment('视频id'),
             'tid' => $this->integer(11)->notNull()->defaultValue(0)->comment('标签id'),
 
-            'status' => $this->smallInteger(1)->defaultValue(1)->comment('是否有效,1:有效,0:无效'),
+            'status' => $this->smallInteger(1)->defaultValue(1)->comment('是否有效,1:有效,0:无效,-1:永久删除'),
             'created_at' => $this->integer()->notNull()->comment('创建时间'),
             'updated_at' => $this->integer()->notNull()->comment('最后修改时间'),
         ], $tableOptions);

@@ -20,7 +20,7 @@ class m170412_032719_teacher extends Migration
             'synopsis' => $this->char(255)->defaultValue('')->comment('教师简介'),
             'header_portrait' => $this->integer(11)->defaultValue(0)->comment('教师头像'),
 
-            'status' => $this->smallInteger(1)->defaultValue(1)->comment('是否有效,1:有效,0:无效'),
+            'status' => $this->smallInteger(1)->defaultValue(1)->comment('是否有效,1:有效,0:无效,-1:永久删除'),
             'created_at' => $this->integer()->notNull()->comment('创建时间'),
             'updated_at' => $this->integer()->notNull()->comment('最后修改时间'),
         ], $tableOptions);
