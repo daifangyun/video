@@ -10,6 +10,7 @@
             <div class="pull-left info">
                 <p>Alexander Pierce</p>
                 <a href="#"><i class="fa fa-circle text-success"></i> 在线</a>
+                <a href="<?= \yii\helpers\Url::to(['site/logout']) ?>"><i class="fa fa-sign-out"></i> 退出登录</a>
             </div>
         </div>
 

@@ -15,6 +15,8 @@ class BaseController extends Controller
 {
     public function init()
     {
+        if (\Yii::$app->user->isGuest) return $this->redirect('/site/login.html');
+
         parent::init();
     }
 
