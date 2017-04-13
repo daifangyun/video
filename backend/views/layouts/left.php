@@ -36,8 +36,10 @@
                         'icon' => 'video-camera',
                         'url' => '#',
                         'items' => [
+                            ['label' => '添加视频', 'icon' => 'plus', 'url' => ['/video/create'],],
+                            ['label' => '视频列表', 'icon' => 'list-ul', 'url' => ['/video/list'],],
                             [
-                                'label' => '分类管理',
+                                'label' => '-分类管理',
                                 'icon' => 'th-list',
                                 'url' => '#',
                                 'items' => [
@@ -46,7 +48,7 @@
                                 ],
                             ],
                             [
-                                'label' => '标签管理',
+                                'label' => '-标签管理',
                                 'icon' => 'tags',
                                 'url' => '#',
                                 'items' => [

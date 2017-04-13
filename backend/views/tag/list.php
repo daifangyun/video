@@ -4,7 +4,7 @@ use yii\helpers\Html;
 use yii\helpers\Url;
 use backend\models\CategoryModel;
 
-$this->title = '文章列表';
+$this->title = '标签列表';
 ?>
 <div class="site-index">
     <div class="body-content">
@@ -37,9 +37,9 @@ $this->title = '文章列表';
                             <?php foreach ($list as $k => $v): ?>
                                 <tr>
                                     <td><?= ++$k ?></td>
-                                    <td><?= Html::encode($v['name']) ?></td>
+                                    <td><?= $v['html'] . Html::encode($v['name']) ?></td>
                                     <td><?= Html::encode($v['category']['name']) ?></td>
-                                    <td><?= Html::encode($v['sort']) ?></td>
+                                    <td><?= $v['html'] . Html::encode($v['sort']) ?></td>
                                     <td>
                                         <?php
                                         if ($v['status'] == CategoryModel::STATUS_ENABLE) echo '启用';

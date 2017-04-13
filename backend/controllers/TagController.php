@@ -118,7 +118,35 @@ class TagController extends BaseController
             ->limit($pages->limit)
             ->asArray()
             ->all();
+        if ($list) {
+            $list = $this->recursionLayer($list);
+        }
         return $this->render('list', ['list' => $list, 'pages' => $pages]);
+    }
+
+    /**
+     * 递归组合标签， 遍历所有标签，将所有子标签，放入父标签下边
+     * @param $array  array   待遍历的数组
+     * @param int $pid 从父id为多少的开始
+     * @param int $level 层级
+     * @param string $html 给子层级相对于父级  加的 html
+     * @return array|bool
+     */
+    private function recursionLayer($array, $pid = 0, $level = 0, $html = '&nbsp;&nbsp;--')
+    {
+        if (!is_array($array) || empty($array)) return false;
+
+        $resArr = [];
+        foreach ($array as $k => $v) {
+            if ($v['pid'] == $pid) {
+                $v['level'] = $level;
+                $v['html'] = str_repeat($html, $level);
+                $resArr[] = $v;
+                $resArr = array_merge($resArr, $this->recursionLayer($array, $v['id'], $level + 1));
+            }
+        }
+
+        return $resArr;
     }
 
     /**
@@ -164,7 +192,7 @@ class TagController extends BaseController
             $tags = TagModel::getAllEnableTags();
             $topTag = ['id' => 0, 'name' => '顶级标签'];
             array_unshift($tags, $topTag);
-//dd($categorys);
+
             return $this->render('edit', [
                 'model' => $formModel,
                 'categorys' => $categorys,
@@ -219,7 +247,8 @@ class TagController extends BaseController
      * 删除
      * @return \yii\web\Response
      */
-    public function actionDel()
+    public
+    function actionDel()
     {
         $id = (int)\Yii::$app->request->get('id');
 

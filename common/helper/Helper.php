@@ -11,8 +11,5 @@ namespace common\Helper;
 
 class Helper
 {
-    public function help()
-    {
-        
-    }
+
 }
