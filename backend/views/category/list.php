@@ -7,6 +7,14 @@ use backend\models\CategoryModel;
 $this->title = '文章列表';
 ?>
 <div class="site-index">
+    <?php $this->beginBlock('content-header'); ?>
+    <?= \backend\widget\BreadcrumbWidget::widget([
+        'level' => [
+            '分类管理' => Url::to([Yii::$app->controller->id . '/list']),
+        ],
+        'active' => '分类列表',
+    ]); ?>
+    <?php $this->endBlock(); ?>
     <div class="body-content">
         <?= \backend\widget\FormAlertWidget::widget() ?>
         <div class="row">
@@ -19,6 +27,8 @@ $this->title = '文章列表';
                                 <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
                             </div>
                         </div>
+                        <a role="button" href="<?= Url::to([Yii::$app->controller->id . '/create']); ?>"
+                           class="btn-sm btn-default pull-right">添加分类</a>
                     </div>
                 </div>
                 <div class="box-body">

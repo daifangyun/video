@@ -36,26 +36,9 @@
                         'icon' => 'video-camera',
                         'url' => '#',
                         'items' => [
-                            ['label' => '添加视频', 'icon' => 'plus', 'url' => ['/video/create'],],
-                            ['label' => '视频列表', 'icon' => 'list-ul', 'url' => ['/video/list'],],
-                            [
-                                'label' => '-分类管理',
-                                'icon' => 'th-list',
-                                'url' => '#',
-                                'items' => [
-                                    ['label' => '添加分类', 'icon' => 'plus', 'url' => ['/category/create'],],
-                                    ['label' => '分类列表', 'icon' => 'list-ul', 'url' => ['/category/list'],],
-                                ],
-                            ],
-                            [
-                                'label' => '-标签管理',
-                                'icon' => 'tags',
-                                'url' => '#',
-                                'items' => [
-                                    ['label' => '添加标签', 'icon' => 'plus', 'url' => ['/tag/create'],],
-                                    ['label' => '标签列表', 'icon' => 'list-ul', 'url' => ['/tag/list'],],
-                                ],
-                            ],
+                            ['label' => '视频列表', 'icon' => 'file-video-o', 'url' => ['/video/list'],],
+                            ['label' => '分类管理', 'icon' => 'cubes', 'url' => ['/category/list'],],
+                            ['label' => '标签管理', 'icon' => 'tags', 'url' => ['/tag/list'],],
                         ],
                     ],
                     ['label' => '基本统计', 'icon' => 'stack-exchange', 'url' => ['/gii']],

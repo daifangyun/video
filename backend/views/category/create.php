@@ -6,11 +6,13 @@ use yii\helpers\Url;
 $this->title = '添加分类 ...';
 ?>
 <div class="site-index">
+    <?php $this->beginBlock('content-header'); ?>
+    <?= \backend\widget\BreadcrumbWidget::widget([
+        'level' => ['分类列表' => Url::to([Yii::$app->controller->id . '/list'])],
+        'active' => '添加分类',
+    ]); ?>
+    <?php $this->endBlock(); ?>
     <div class="body-content">
-        <?= \backend\widget\BreadcrumbWidget::widget([
-            'level' => ['分类' => Url::to([Yii::$app->controller->id . '/list'])],
-            'active' => '添加分类',
-        ]); ?>
         <?= \backend\widget\FormAlertWidget::widget(); ?>
 
         <div class="row">
